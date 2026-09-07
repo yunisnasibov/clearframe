@@ -1,0 +1,12 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import {parseCSV,clean,profile,csv,sample} from '../src/core.mjs';import {writeWorkbook} from '../src/xlsx.mjs';import {writeFile,mkdir} from 'node:fs/promises';
+test('CSV handles commas, escaped quotes and newlines',()=>{assert.deepEqual(parseCSV('name,note\r\n"Doe, Jane","said ""hello""\nagain"').rows,[['Doe, Jane','said "hello"\nagain']]);});
+test('CSV preserves leading zeros and whitespace',()=>assert.deepEqual(parseCSV('id;name\n001; Alice ').rows,[['001',' Alice ']]));
+test('malformed quoting is rejected',()=>assert.throws(()=>parseCSV('a,b\n"oops,x')));
+test('missing and duplicate headers are named without losing columns',()=>assert.deepEqual(parseCSV('x,x,\n1,2,3').headers,['x','x (2)','Column 3']));
+test('no rules means no changes',()=>assert.deepEqual(clean(sample,{}).data,sample));
+test('all rules yield expected rows, no imputation, original unchanged',()=>{let original=structuredClone(sample),r=clean(sample,{trim:true,empty:true,duplicates:true});assert.equal(r.data.rows.length,9);assert.equal(r.removedRows,3);assert.equal(profile(r.data).duplicates,0);assert.equal(profile(r.data).missing,3);assert.deepEqual(sample,original);assert.equal(r.data.rows[0][1],'Maya Chen');});
+test('trim happens before deduplication',()=>assert.equal(clean({headers:['x'],rows:[[' a'],['a']]},{trim:true,duplicates:true}).data.rows.length,1));
+test('zeros and false text are not missing',()=>assert.equal(profile({headers:['x'],rows:[['0'],['false'],[' ']]}).missing,1));
+test('CSV export escapes formula-like strings',()=>assert.match(csv({headers:['x'],rows:[['=1+1']]}),/'=1\+1/));
+test('empty dataset cleans safely',()=>assert.deepEqual(clean({headers:['x'],rows:[]},{trim:true,empty:true,duplicates:true}).data.rows,[]));
+test('XLSX writer produces file for independent validation',async()=>{await mkdir('tests/artifacts',{recursive:true});await writeFile('tests/artifacts/export.xlsx',new Uint8Array(await writeWorkbook({headers:['id','text'],rows:[['001','=1+1'],['002','A & B < C']]}).arrayBuffer()));});
