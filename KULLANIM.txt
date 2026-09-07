@@ -1,0 +1,28 @@
+CLEARFRAME — YUNIS NASIBOV
+
+Bu proje bu klasorde bagimsizdir. Diger projeleri degistirmez.
+
+1. START.cmd dosyasini ac.
+2. Tarayicida http://127.0.0.1:4173 adresine git.
+3. Try sample data ile ornegi yukle.
+4. Uc temizlik secenegini isaretle ve Preview changes'e bas.
+5. Original / Cleaned ile karsilastir, Excel veya CSV indir.
+
+Ornek tamamen kurgusaldir. 12 satirdan 9 satir kalir.
+Eksik degerler otomatik doldurulmaz; 3 eksik hucre korunur.
+Download change report yapilan islemleri JSON olarak kaydeder.
+
+Dosyalar sunucuya gonderilmez. Sayfa yenilendiginde bellekten kaybolur.
+Excel destegi: XLSX, degerler odakli. Formuller hesaplanmaz,
+tarih bicimleri ve hucre stilleri korunmaz. Eski XLS desteklenmez.
+
+Node.js 20+ gerekir. Paket kurulumu veya API anahtari gerekmez.
+Kapatmak icin acilan terminalde Ctrl+C kullan.
+Port zaten kullaniliyorsa mevcut onizlemeyi kullan veya once onu kapat.
+
+11 otomatik mantik testi ve bagimsiz Excel cikti kontrolu gecti.
+Tarayicidaki tum etkilesimler ve farkli Excel dosyalarinin iceri alinmasi
+henuz kapsamli dogrulanmadi. Uretim sistemi olarak sunulmamalidir.
+
+Portfoy aciklamasi ve 45 saniyelik video plani PORTFOLIO.md icinde.
+Ekran goruntusu ve video henuz uretilmedi.
