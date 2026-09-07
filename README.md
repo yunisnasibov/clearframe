@@ -48,10 +48,6 @@ No databases, API keys, accounts, telemetry, uploads to a server, or changes to 
 
 Automated tests cover CSV quoting, multiline cells, delimiters, leading zero preservation, malformed input, header normalization, immutable cleaning, operation order, blanks, duplicates and export. Exported XLSX was independently read with openpyxl. Full browser interaction and XLSX import compatibility across third-party workbooks remain to be verified before claiming production readiness. WebMCP is feature-detected; its live integration has not been verified.
 
-## Portfolio honesty
-
-Describe this as a personal demo built with AI assistance. It is not a client engagement, an AI prediction system, or a production-certified data platform. Be ready to explain and modify the code before taking related client work.
-
 ## Opening CSV in Excel
 
 If a CSV opens in one column, use Data > From Text/CSV and select comma as delimiter, or download XLSX instead. XLSX exports include readable column widths.
